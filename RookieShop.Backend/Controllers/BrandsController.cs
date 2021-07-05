@@ -29,6 +29,7 @@ namespace RookieShop.Backend.Controllers
             return await _context.Brands
                 .Select(x => new BrandVm { Id = x.Id, Name = x.Name })
                 .ToListAsync();
+            
         }
 
         [HttpGet("{id}")]

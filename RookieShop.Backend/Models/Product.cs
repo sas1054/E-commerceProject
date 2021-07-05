@@ -16,12 +16,14 @@ namespace RookieShop.Backend.Models
 
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }
-        public int NumberInStock { get; set; }
-
+        public int Quantity { get; set; }
+        
+        public string ImageLink { get; set; }
+        
         public Category Category { get; set; }
         public bool isDeleted { get; set; }
 
-        public List<Comment> Comment { get; set; } = new List<Comment>();
+        
 
 
 
