@@ -10,8 +10,8 @@ using RookieShop.Backend.Data;
 namespace RookieShop.Backend.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210706050946_Init-model")]
-    partial class Initmodel
+    [Migration("20210706072747_update-foreignkey")]
+    partial class updateforeignkey
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -170,12 +170,7 @@ namespace RookieShop.Backend.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Categories");
                 });
@@ -186,6 +181,9 @@ namespace RookieShop.Backend.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -210,6 +208,8 @@ namespace RookieShop.Backend.Data.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
                 });
@@ -333,16 +333,15 @@ namespace RookieShop.Backend.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RookieShop.Backend.Models.Category", b =>
-                {
-                    b.HasOne("RookieShop.Backend.Models.Product", null)
-                        .WithMany("Categories")
-                        .HasForeignKey("ProductId");
-                });
-
             modelBuilder.Entity("RookieShop.Backend.Models.Product", b =>
                 {
-                    b.Navigation("Categories");
+                    b.HasOne("RookieShop.Backend.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

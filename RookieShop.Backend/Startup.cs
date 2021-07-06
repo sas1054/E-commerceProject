@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using RookieShop.Backend.Data;
 using RookieShop.Backend.IdentityServer;
+using RookieShop.Backend.Mapper;
 using RookieShop.Backend.Models;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,7 @@ namespace RookieShop.Backend
                     Configuration.GetConnectionString("DefaultConnection")));
             
             services.AddDatabaseDeveloperPageExceptionFilter();
-
+            services.AddAutoMapper(typeof(Mapping));
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();

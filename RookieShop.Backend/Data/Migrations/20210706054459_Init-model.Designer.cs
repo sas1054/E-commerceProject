@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RookieShop.Backend.Data;
 
 namespace RookieShop.Backend.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210706054459_Init-model")]
+    partial class Initmodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,7 +170,12 @@ namespace RookieShop.Backend.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Categories");
                 });
@@ -179,9 +186,6 @@ namespace RookieShop.Backend.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -206,8 +210,6 @@ namespace RookieShop.Backend.Data.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
                 });
@@ -331,15 +333,16 @@ namespace RookieShop.Backend.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("RookieShop.Backend.Models.Category", b =>
+                {
+                    b.HasOne("RookieShop.Backend.Models.Product", null)
+                        .WithMany("Categories")
+                        .HasForeignKey("ProductId");
+                });
+
             modelBuilder.Entity("RookieShop.Backend.Models.Product", b =>
                 {
-                    b.HasOne("RookieShop.Backend.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
+                    b.Navigation("Categories");
                 });
 #pragma warning restore 612, 618
         }
