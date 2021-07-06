@@ -4,13 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using RookieShop.Backend.Models.Enums;
 
 namespace RookieShop.Backend.Models
 {
     public class Product
-    {
-        public string Id { get; set; }
+    {   
+        [Key]
+        public int Id { get; set; }
+        [Required]
         public string ProductName { get; set; }
         public string Description { get; set; }
 
@@ -19,9 +20,10 @@ namespace RookieShop.Backend.Models
         public int Quantity { get; set; }
         
         public string ImageLink { get; set; }
-        
-        public Category Category { get; set; }
+
+        public DateTime CreatedDate { get; set; }
         public bool isDeleted { get; set; }
+        public List<Category> Categories { get; set; } = new List<Category>();
 
         
 

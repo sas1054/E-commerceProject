@@ -24,4 +24,8 @@
     <ProjectReference Include="..\RookieShop.Shared\RookieShop.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Enums\" />
+  </ItemGroup>
+
 </Project>
