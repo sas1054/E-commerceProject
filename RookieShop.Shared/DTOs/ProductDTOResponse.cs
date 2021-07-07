@@ -18,7 +18,8 @@ namespace RookieShop.Backend.Models
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }
         public int Quantity { get; set; }
-
+        [ForeignKey("CategoryId")]
+        public int CategoryId { get; set; }
         public string ImageLink { get; set; }
 
 
