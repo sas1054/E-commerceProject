@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ namespace RookieShop.Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize("Bearer")]
     public class ProductsController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
@@ -27,11 +29,22 @@ namespace RookieShop.Backend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllProducts()
         {
+            /*var query = from p in _db.Products
+                        join c in _db.Categories on p.CategoryId equals c.Id
+                        select new { p.Id, p.ProductName, p.Description, p.Price, p.Quantity, c.CategoryName, p.ImageLink };*/
+            /*var objList = await query.ToListAsync(); */
+
+
             var objList = await _db.Products.Include(m => m.Category).OrderBy(m => m.ProductName).ToListAsync();
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Product, ProductDTOResponse>()
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(s => s.Category.CategoryName))
+            )
+            .CreateMapper();
+
             var objDTO = new List<ProductDTOResponse>();
             foreach (var item in objList)
-            {
-                objDTO.Add(_mapper.Map<ProductDTOResponse>(item));
+            {                
+                objDTO.Add(mapper.Map<ProductDTOResponse>(item));
             }
             return Ok(objDTO);
         }
@@ -82,6 +95,21 @@ namespace RookieShop.Backend.Controllers
             return NoContent();
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteMenuItem(int id)
+        {
+            bool exits = _db.Products.Any(c => c.Id == id);
+            if (!exits)
+            {
+                return NotFound();
+            }
+
+            var menuItemObj = await _db.Products.FindAsync(id);
+            _db.Products.Remove(menuItemObj);
+            await _db.SaveChangesAsync();
+
+            return NoContent();
+        }
 
 
     }

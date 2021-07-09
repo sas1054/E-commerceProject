@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Rookie.CustomerSite.Interfaces;
 using Rookie.CustomerSite.Models;
+using RookieShop.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,15 +14,21 @@ namespace Rookie.CustomerSite.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IProductService _productService;
+        public HomeController(ILogger<HomeController> logger, IProductService productService)
         {
             _logger = logger;
+            _productService = productService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+
+            var viewmodel = new HomeVM
+            {
+                Products = await _productService.GetProductAsync()
+            };
+            return View(viewmodel);
         }
 
         public IActionResult Privacy()
