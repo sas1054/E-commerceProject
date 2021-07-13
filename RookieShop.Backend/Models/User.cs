@@ -15,6 +15,6 @@ namespace RookieShop.Backend.Models
 
         [PersonalData]
         public string FullName { get; set; }
-        public List<Comment> Comment { get; set; } = new List<Comment>();
+        
     }
 }

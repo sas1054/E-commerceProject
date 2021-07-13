@@ -5,6 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Rookie.CustomerSite.Extensions.ServiceCollection;
+using Rookie.CustomerSite.Interfaces;
+using Rookie.CustomerSite.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,7 +55,9 @@ namespace Rookie.CustomerSite
                         RoleClaimType = "role"
                     };
                 });
-
+            services.AddHttpContextAccessor();
+            services.AddCustomHttpClient(Configuration);
+            services.AddServices();
             services.AddControllersWithViews();
         }
 
