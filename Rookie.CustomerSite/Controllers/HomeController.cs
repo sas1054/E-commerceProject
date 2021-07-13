@@ -24,11 +24,11 @@ namespace Rookie.CustomerSite.Controllers
         public async Task<IActionResult> Index()
         {
 
-            var viewmodel = new HomeVM
+            var homeVM = new HomeVM
             {
                 Products = await _productService.GetProductAsync()
             };
-            return View(viewmodel);
+            return View(homeVM);
         }
 
         public IActionResult Privacy()

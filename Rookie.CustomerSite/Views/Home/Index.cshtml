@@ -2,12 +2,76 @@
     ViewData["Title"] = "Home Page";
 }
 @using RookieShop.Shared.ViewModels
-@model HomeVM 
+@model HomeVM
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<section class="navbar main-menu">
+    <div class="navbar-inner main-menu">
+        <a class="logo pull-left" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/logo.png" class="site_logo" alt=""></a>
+        <nav id="menu" class="pull-right">
+            <ul>
+                <li>
+                    <a href="./products.html">Woman</a>
+                    <ul>
+                        <li><a href="./products.html">Lacinia nibh</a></li>
+                        <li><a href="./products.html">Eget molestie</a></li>
+                        <li><a href="./products.html">Varius purus</a></li>
+                    </ul>
+                </li>
+                <li><a href="./products.html">Man</a></li>
+                <li>
+                    <a href="./products.html">Sport</a>
+                    <ul>
+                        <li><a href="./products.html">Gifts and Tech</a></li>
+                        <li><a href="./products.html">Ties and Hats</a></li>
+                        <li><a href="./products.html">Cold Weather</a></li>
+                    </ul>
+                </li>
+                <li><a href="./products.html">Hangbag</a></li>
+                <li><a href="./products.html">Best Seller</a></li>
+                <li><a href="./products.html">Top Seller</a></li>
+            </ul>
+        </nav>
+    </div>
+</section>
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    @foreach(var item in Model.Products)
-    { 
-    <p>@item.ProductName </p>
-    }
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-page="" asp-route-sortOrder="id"
+                       >
+                        @Html.DisplayNameFor(model => model.Products.FirstOrDefault().Id)
+                    </a>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Products.FirstOrDefault().ProductName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Products.FirstOrDefault().CategoryName)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Products)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td>
+                    <a asp-page="" asp-route-id="@item.Id">Edit</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
 </div>
 

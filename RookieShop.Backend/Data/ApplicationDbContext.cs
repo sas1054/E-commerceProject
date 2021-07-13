@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using RookieShop.Backend.Data.Extensions;
 using RookieShop.Backend.Models;
 using RookieShop.Shared.DTOs;
 
@@ -17,9 +18,15 @@ namespace RookieShop.Backend.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<RookieShop.Shared.DTOs.CategoryDTO> CategoryDTO { get; set; }
 
-        /*protected override void OnModelCreating(ModelBuilder modelBuilder)
+        
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Product>().ToTable("Product").HasNoKey();
-        }*/
+            
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Seed();
+        }
     }
+
+
 }
