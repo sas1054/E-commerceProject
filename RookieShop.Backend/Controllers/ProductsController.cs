@@ -52,12 +52,16 @@ namespace RookieShop.Backend.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProductByID(int id)
         {
-            var obj = await _db.Products.FindAsync(id);
+            var obj = await _db.Products.Include(m=> m.Category).FirstOrDefaultAsync(i =>i.Id== id);
             if (obj == null)
             {
                 return NotFound();
             }
-            var objDTO = _mapper.Map<ProductDTOResponse>(obj);
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Product, ProductDTOResponse>()
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(s => s.Category.CategoryName))
+            )
+            .CreateMapper();
+            var objDTO = mapper.Map<ProductDTOResponse>(obj);
             return Ok(objDTO);
         }
 

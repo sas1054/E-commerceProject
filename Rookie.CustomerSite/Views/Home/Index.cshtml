@@ -4,36 +4,8 @@
 @using RookieShop.Shared.ViewModels
 @model HomeVM
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-<div id="wrapper" class="container">
-    <section class="navbar main-menu">
-        <div class="navbar-inner main-menu">
-            <a class="logo pull-left" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/logo.png" class="site_logo" alt=""></a>
-            <nav id="menu" class="pull-right">
-                <ul>
-                    <li>
-                        <a href="./products.html">Woman</a>
-                        <ul>
-                            <li><a href="./products.html">Lacinia nibh</a></li>
-                            <li><a href="./products.html">Eget molestie</a></li>
-                            <li><a href="./products.html">Varius purus</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="./products.html">Man</a></li>
-                    <li>
-                        <a href="./products.html">Sport</a>
-                        <ul>
-                            <li><a href="./products.html">Gifts and Tech</a></li>
-                            <li><a href="./products.html">Ties and Hats</a></li>
-                            <li><a href="./products.html">Cold Weather</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="./products.html">Hangbag</a></li>
-                    <li><a href="./products.html">Best Seller</a></li>
-                    <li><a href="./products.html">Top Seller</a></li>
-                </ul>
-            </nav>
-        </div>
-    </section>
+
+    
     <div class="text-center">
         <h1 class="display-4">Welcome</h1>
         <table class="table">
@@ -74,5 +46,28 @@
             </tbody>
         </table>
     </div>
-</div>
+
+    <section class="main-content">
+
+        <div class="row">
+            <div class="span12">
+                <ul class="thumbnails listing-products">
+                    @foreach (var item in Model.Products)
+                    {
+                        <li class="span3">
+                            <div class="product-box">
+
+                                <span class="sale_tag"></span>
+                                <a asp-controller="ProductDetail" asp-action="Index" asp-route-id=@item.Id><img alt="" src="~/images/ladies/1.jpg"></a><br />
+                                <a asp-controller="ProductDetail" asp-action="Index" asp-route-id=@item.Id class="title">@item.ProductName</a><br />
+                                <a href="#" class="category">@item.CategoryName</a>
+                                <p class="price">$@item.Price</p>
+                            </div>
+                        </li>
+                    }
+                    </ul>
+                </div>
+            </div>
+        </section>
+
 

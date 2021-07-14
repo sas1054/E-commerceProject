@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RookieShop.Shared.ViewModels
 {
-    class ProductDetailVM
+    public class ProductDetailVM
     {
         public ProductDTOResponse Product { get; set; }
     }
