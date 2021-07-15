@@ -1,4 +1,4 @@
-﻿using RookieShop.Backend.Models;
+﻿using RookieShop.Shared.DTOs.ProductDTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;

@@ -15,10 +15,14 @@ namespace Rookie.CustomerSite.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IProductService _productService;
-        public HomeController(ILogger<HomeController> logger, IProductService productService)
+        private readonly ICategoryService _categoryService;
+        public HomeController(ILogger<HomeController> logger, IProductService productService, ICategoryService categoryService)
         {
             _logger = logger;
             _productService = productService;
+            _categoryService = categoryService;
+
+
         }
 
         public async Task<IActionResult> Index()
@@ -26,7 +30,8 @@ namespace Rookie.CustomerSite.Controllers
 
             var homeVM = new HomeVM
             {
-                Products = await _productService.GetProductAsync()
+                Products = await _productService.GetProductAsync(),
+                Categories = await _categoryService.GetCategoryAsync()
             };
             return View(homeVM);
         }

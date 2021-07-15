@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\Enums\**" />
+    <Content Remove="Models\Enums\**" />
+    <EmbeddedResource Remove="Models\Enums\**" />
+    <None Remove="Models\Enums\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="4.1.2" />
@@ -23,12 +30,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RookieShop.Shared\RookieShop.Shared.csproj" />
+    <Folder Include="Data\Configurations\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Configurations\" />
-    <Folder Include="Models\Enums\" />
+    <ProjectReference Include="..\RookieShop.Shared\RookieShop.Shared.csproj" />
   </ItemGroup>
 
 </Project>

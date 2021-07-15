@@ -13,30 +13,30 @@
                 <tr>
                     <th>
                         <a asp-page="" asp-route-sortOrder="id">
-                            @Html.DisplayNameFor(model => model.Products.FirstOrDefault().Id)
+                            @Html.DisplayNameFor(model => model.Categories.FirstOrDefault().Id)
                         </a>
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Products.FirstOrDefault().ProductName)
+                        @Html.DisplayNameFor(model => model.Categories.FirstOrDefault().CategoryName)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Products.FirstOrDefault().CategoryName)
+                        @Html.DisplayNameFor(model => model.Categories.FirstOrDefault().Description)
                     </th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.Products)
+                @foreach (var item in Model.Categories)
                 {
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.Id)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ProductName)
+                            @Html.DisplayFor(modelItem => item.CategoryName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.CategoryName)
+                            @Html.DisplayFor(modelItem => item.Description)
                         </td>
                         <td>
                             <a asp-page="" asp-route-id="@item.Id">Edit</a>

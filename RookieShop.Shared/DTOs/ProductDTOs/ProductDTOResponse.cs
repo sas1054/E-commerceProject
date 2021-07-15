@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace RookieShop.Backend.Models
+namespace RookieShop.Shared.DTOs.ProductDTOs
 {
     public class ProductDTOResponse
     {

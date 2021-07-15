@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RookieShop.Backend.Data;
 using RookieShop.Backend.Models;
+using RookieShop.Shared.DTOs;
 
 namespace RookieShop.Backend.Controllers
 {
@@ -15,17 +17,25 @@ namespace RookieShop.Backend.Controllers
     public class CategoriesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public CategoriesController(ApplicationDbContext context)
+        public CategoriesController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Categories
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
-            return await _context.Categories.ToListAsync();
+            var CList = await _context.Categories.OrderBy(m => m.CategoryName).ToListAsync();
+            var CDTO = new List<CategoryDTO>();
+            foreach (var item in CList)
+            {
+               CDTO.Add( _mapper.Map<CategoryDTO>(item));
+            }
+            return Ok(CDTO);
         }
 
         // GET: api/Categories/5
