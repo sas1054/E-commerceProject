@@ -1,0 +1,20 @@
+﻿@using RookieShop.Shared.ViewModels;
+@using RookieShop.Shared.DTOs
+@model CategoryVCVM
+<div class="span3 col">
+    <div class="block">
+        <ul class="nav nav-list">
+            <li class="nav-header">DANH MỤC SẢN PHẨM</li>
+            @foreach (var item in Model.Categories)
+            {
+                <li>
+                    <a href="#">@item.CategoryName</a>
+                </li>
+            }
+        </ul>
+        <br />
+        <div class="block">
+            <h4 class="title"><strong>Xem tất cả danh mục</strong></h4>
+        </div>
+     </div>
+</div>
