@@ -25,12 +25,34 @@ namespace Rookie.CustomerSite.Controllers
 
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? CategoryID)
         {
+            var homeVM = new HomeVM();
+            if (!CategoryID.HasValue) {
+                var homeVM1 = new HomeVM
+                {
+                    Products = await _productService.GetProductAsync(),
+                    Categories = await _categoryService.GetCategoryAsync()
+                };
+                homeVM = homeVM1;
+            }
+            else
+            {
+                var homeVM2 = new HomeVM
+                {
+                    Products = await _productService.GetProductByCategory(CategoryID.Value),
+                    Categories = await _categoryService.GetCategoryAsync()
+                };
+                homeVM = homeVM2;
+            }
 
+            return View(homeVM);
+        }
+        public async Task<IActionResult> ViewProductByCategory(int? productID)
+        {
             var homeVM = new HomeVM
             {
-                Products = await _productService.GetProductAsync(),
+                Products = await _productService.GetProductByCategory(productID.Value),
                 Categories = await _categoryService.GetCategoryAsync()
             };
             return View(homeVM);

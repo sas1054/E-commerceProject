@@ -42,7 +42,7 @@ namespace Rookie.CustomerSite.Services
             var client = _clientFactory.CreateClient(ServiceConstants.BACK_END_NAMED_CLIENT);
             var response = await client.GetAsync($"{EndpointConstants.GET_BRANDS_BY_CATEGORY}\\{CategoryId}");
             response.EnsureSuccessStatusCode();
-            var Products = await response.Content.ReadAsAsync < IEnumerable<ProductDTOResponse>>();
+            var Products = await response.Content.ReadAsAsync <IEnumerable<ProductDTOResponse>>();
             return Products;
         }
     }

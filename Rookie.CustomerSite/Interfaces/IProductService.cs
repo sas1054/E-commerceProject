@@ -12,5 +12,7 @@ namespace Rookie.CustomerSite.Interfaces
     {
         Task<IEnumerable<ProductDTOResponse>> GetProductAsync(/*ProductCriteriaDTO productCriteriaDto*/);
         Task<ProductDTOResponse> GetProductByIdAsync(int id);
+
+        Task<IEnumerable<ProductDTOResponse>> GetProductByCategory(int CategoryId);
     }
 }
