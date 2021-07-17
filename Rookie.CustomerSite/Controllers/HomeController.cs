@@ -25,8 +25,9 @@ namespace Rookie.CustomerSite.Controllers
 
         }
 
-        public async Task<IActionResult> Index(int? CategoryID)
+        public async Task<IActionResult> Index(int? CategoryID, string name)
         {
+            ViewData["CurrentFilter"] = name;
             var homeVM = new HomeVM();
             if (!CategoryID.HasValue) {
                 var homeVM1 = new HomeVM
@@ -35,15 +36,25 @@ namespace Rookie.CustomerSite.Controllers
                     Categories = await _categoryService.GetCategoryAsync()
                 };
                 homeVM = homeVM1;
-            }
+            }           
             else
             {
-                var homeVM2 = new HomeVM
+                var homeVM1 = new HomeVM
                 {
-                    Products = await _productService.GetProductByCategory(CategoryID.Value),
+                    Products = await _productService.GetProductByCategory(CategoryID.Value),                    
                     Categories = await _categoryService.GetCategoryAsync()
                 };
-                homeVM = homeVM2;
+                
+                homeVM = homeVM1;
+            }
+            if (!String.IsNullOrEmpty(name))
+            {
+                var homeVM1 = new HomeVM
+                {
+                    Products = await _productService.SearchProduct(name),
+                    Categories = await _categoryService.GetCategoryAsync()
+                };
+                homeVM = homeVM1;
             }
 
             return View(homeVM);

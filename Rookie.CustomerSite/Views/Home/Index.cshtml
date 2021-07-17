@@ -5,7 +5,12 @@
 @model HomeVM
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-    
+<div class="span4">
+    <form asp-action="Index" method="POST" class="search_form">
+        <input type="text" name="name" value="@ViewData["CurrentFilter"]" class="input-block-level search-query" Placeholder="Nhập thứ bạn cần tìm . . .">
+        <input type="submit" value="Search" class="btn btn-default"/>
+    </form>
+</div>
     <div class="text-center">
         <h1 class="display-4">Welcome</h1>
         <table class="table">

@@ -30,12 +30,6 @@ namespace RookieShop.Backend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllProducts()
         {
-            /*var query = from p in _db.Products
-                        join c in _db.Categories on p.CategoryId equals c.Id
-                        select new { p.Id, p.ProductName, p.Description, p.Price, p.Quantity, c.CategoryName, p.ImageLink };*/
-            /*var objList = await query.ToListAsync(); */
-
-
             var objList = await _db.Products.Include(m => m.Category).OrderBy(m => m.ProductName).ToListAsync();
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Product, ProductDTOResponse>()
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(s => s.Category.CategoryName))
@@ -94,6 +88,26 @@ namespace RookieShop.Backend.Controllers
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(s => s.Category.CategoryName))
             )
             .CreateMapper();
+            var objDTO = new List<ProductDTOResponse>();
+            /*foreach (var item in objList)
+            {
+                objDTO.Add();
+            }*/
+            return Ok(mapper.Map<ProductDTOResponse>(objList));
+        }
+        [HttpGet("SearchProduct/{name}")]
+        public async Task<IActionResult> SearchProduct(string name)
+        {
+            var objList = await _db.Products
+                .Include(m => m.Category)
+                .Where(m => m.ProductName.Contains(name))
+                .OrderBy(m => m.ProductName)
+                .ToListAsync();
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Product, ProductDTOResponse>()
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(s => s.Category.CategoryName))
+            )
+            .CreateMapper();
+
             var objDTO = new List<ProductDTOResponse>();
             foreach (var item in objList)
             {

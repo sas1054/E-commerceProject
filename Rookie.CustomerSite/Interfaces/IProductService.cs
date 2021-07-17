@@ -14,5 +14,7 @@ namespace Rookie.CustomerSite.Interfaces
         Task<ProductDTOResponse> GetProductByIdAsync(int id);
 
         Task<IEnumerable<ProductDTOResponse>> GetProductByCategory(int CategoryId);
+
+        Task<IEnumerable<ProductDTOResponse>> SearchProduct(string name);
     }
 }

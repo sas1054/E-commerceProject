@@ -45,5 +45,15 @@ namespace Rookie.CustomerSite.Services
             var Products = await response.Content.ReadAsAsync <IEnumerable<ProductDTOResponse>>();
             return Products;
         }
+
+        public async Task<IEnumerable<ProductDTOResponse>> SearchProduct(string name)
+        {
+            var client = _clientFactory.CreateClient(ServiceConstants.BACK_END_NAMED_CLIENT);
+            var response = await client.GetAsync($"{EndpointConstants.GET_BRANDS_BY_SEARCH}\\{name}");
+            response.EnsureSuccessStatusCode();
+            var Products = await response.Content.ReadAsAsync<IEnumerable<ProductDTOResponse>>();
+            return Products;
+            
+        }
     }
 }
