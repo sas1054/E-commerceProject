@@ -18,6 +18,7 @@ namespace RookieShop.Backend.Models
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }
         public int Quantity { get; set; }
+        public int Rating { get; set; }
         
         public string ImageLink { get; set; }
 
@@ -27,6 +28,8 @@ namespace RookieShop.Backend.Models
         public virtual Category Category { get; set; }
         [ForeignKey("CategoryId")]
         public int CategoryId { get; set; }
+
+        public virtual ICollection<ProductReview> CustomerReviews { get; set; }
 
 
 

@@ -16,6 +16,8 @@ namespace RookieShop.Backend.Data
         
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
+
+        public DbSet<ProductReview> ProductReviews { get; set; }
         public DbSet<RookieShop.Shared.DTOs.CategoryDTO> CategoryDTO { get; set; }
 
         

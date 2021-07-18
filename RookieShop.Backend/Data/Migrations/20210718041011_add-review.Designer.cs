@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RookieShop.Backend.Data;
 
 namespace RookieShop.Backend.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210718041011_add-review")]
+    partial class addreview
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -222,9 +224,6 @@ namespace RookieShop.Backend.Data.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
-
                     b.Property<bool>("isDeleted")
                         .HasColumnType("bit");
 
@@ -245,7 +244,6 @@ namespace RookieShop.Backend.Data.Migrations
                             Price = 2000m,
                             ProductName = "Laptop ASUS",
                             Quantity = 3,
-                            Rating = 0,
                             isDeleted = false
                         },
                         new
@@ -258,7 +256,6 @@ namespace RookieShop.Backend.Data.Migrations
                             Price = 1000m,
                             ProductName = "Laptop Vivo",
                             Quantity = 3,
-                            Rating = 0,
                             isDeleted = false
                         },
                         new
@@ -271,7 +268,6 @@ namespace RookieShop.Backend.Data.Migrations
                             Price = 700m,
                             ProductName = "Laptop trung quốc",
                             Quantity = 3,
-                            Rating = 0,
                             isDeleted = false
                         },
                         new
@@ -284,7 +280,6 @@ namespace RookieShop.Backend.Data.Migrations
                             Price = 500m,
                             ProductName = "Laptop cũ hàng 2nd số 001",
                             Quantity = 3,
-                            Rating = 0,
                             isDeleted = false
                         },
                         new
@@ -297,7 +292,6 @@ namespace RookieShop.Backend.Data.Migrations
                             Price = 400m,
                             ProductName = "Laptop cũ hàng 2nd số 002",
                             Quantity = 3,
-                            Rating = 0,
                             isDeleted = false
                         },
                         new
@@ -310,7 +304,6 @@ namespace RookieShop.Backend.Data.Migrations
                             Price = 200m,
                             ProductName = "Laptop cũ hàng 2nd số 003",
                             Quantity = 3,
-                            Rating = 0,
                             isDeleted = false
                         },
                         new
@@ -323,7 +316,6 @@ namespace RookieShop.Backend.Data.Migrations
                             Price = 1000m,
                             ProductName = "ROG Phone ASUS 144Hz",
                             Quantity = 3,
-                            Rating = 0,
                             isDeleted = false
                         },
                         new
@@ -336,7 +328,6 @@ namespace RookieShop.Backend.Data.Migrations
                             Price = 1000m,
                             ProductName = "IPhèo mười hai Phlus",
                             Quantity = 3,
-                            Rating = 0,
                             isDeleted = false
                         },
                         new
@@ -349,7 +340,6 @@ namespace RookieShop.Backend.Data.Migrations
                             Price = 700m,
                             ProductName = "Samsung Phone",
                             Quantity = 0,
-                            Rating = 0,
                             isDeleted = false
                         },
                         new
@@ -362,7 +352,6 @@ namespace RookieShop.Backend.Data.Migrations
                             Price = 500m,
                             ProductName = "Realme Phone",
                             Quantity = 0,
-                            Rating = 0,
                             isDeleted = false
                         },
                         new
@@ -375,7 +364,6 @@ namespace RookieShop.Backend.Data.Migrations
                             Price = 200m,
                             ProductName = "XiaoMi Phone",
                             Quantity = 3,
-                            Rating = 0,
                             isDeleted = false
                         },
                         new
@@ -388,7 +376,6 @@ namespace RookieShop.Backend.Data.Migrations
                             Price = 100m,
                             ProductName = "Some china phone #1",
                             Quantity = 3,
-                            Rating = 0,
                             isDeleted = false
                         },
                         new
@@ -401,7 +388,6 @@ namespace RookieShop.Backend.Data.Migrations
                             Price = 700m,
                             ProductName = "IPad",
                             Quantity = 0,
-                            Rating = 0,
                             isDeleted = false
                         },
                         new
@@ -414,7 +400,6 @@ namespace RookieShop.Backend.Data.Migrations
                             Price = 600m,
                             ProductName = "Samsung Tablet",
                             Quantity = 0,
-                            Rating = 0,
                             isDeleted = false
                         },
                         new
@@ -427,7 +412,6 @@ namespace RookieShop.Backend.Data.Migrations
                             Price = 200m,
                             ProductName = "Some tablet #1",
                             Quantity = 0,
-                            Rating = 0,
                             isDeleted = false
                         },
                         new
@@ -440,7 +424,6 @@ namespace RookieShop.Backend.Data.Migrations
                             Price = 200m,
                             ProductName = "Some tablet #2",
                             Quantity = 0,
-                            Rating = 0,
                             isDeleted = false
                         },
                         new
@@ -453,7 +436,6 @@ namespace RookieShop.Backend.Data.Migrations
                             Price = 200m,
                             ProductName = "Some tablet #3",
                             Quantity = 0,
-                            Rating = 0,
                             isDeleted = false
                         },
                         new
@@ -466,7 +448,6 @@ namespace RookieShop.Backend.Data.Migrations
                             Price = 200m,
                             ProductName = "Some tablet #4",
                             Quantity = 0,
-                            Rating = 0,
                             isDeleted = false
                         });
                 });
@@ -482,7 +463,10 @@ namespace RookieShop.Backend.Data.Migrations
                     b.Property<DateTime>("DateReview")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ProductId")
+                    b.Property<string>("ProductId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ProductId1")
                         .HasColumnType("int");
 
                     b.Property<int>("Rating")
@@ -496,7 +480,7 @@ namespace RookieShop.Backend.Data.Migrations
 
                     b.HasKey("ReviewId");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductId1");
 
                     b.ToTable("ProductReviews");
                 });
@@ -654,9 +638,7 @@ namespace RookieShop.Backend.Data.Migrations
                 {
                     b.HasOne("RookieShop.Backend.Models.Product", "Product")
                         .WithMany("CustomerReviews")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductId1");
 
                     b.Navigation("Product");
                 });

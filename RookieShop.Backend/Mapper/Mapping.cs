@@ -2,6 +2,7 @@
 using RookieShop.Backend.Models;
 using RookieShop.Shared.DTOs;
 using RookieShop.Shared.DTOs.ProductDTOs;
+using RookieShop.Shared.DTOs.ProductReviewDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,9 @@ namespace RookieShop.Backend.Mapper
             CreateMap<Category, CategoryDTO>().ReverseMap();
             CreateMap<Product, ProductDTORequest>().ReverseMap();
             CreateMap<Product, ProductDTOResponse>().ReverseMap();
-
+            CreateMap<ProductReview, ProductReviewDTO>().ReverseMap();
+            CreateMap<ProductReview, ProductReviewRequest>().ReverseMap();
+            CreateMap<ProductReviewDTO, ProductReviewRequest>().ReverseMap();
         }
     }
 }
