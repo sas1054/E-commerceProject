@@ -25,6 +25,7 @@ namespace RookieShop.Shared.DTOs.ProductDTOs
         public bool isDeleted { get; set; }
 
         
+        
         [ForeignKey("CategoryId")]
         public int CategoryId { get; set; }
 

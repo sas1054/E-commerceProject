@@ -76,7 +76,7 @@ body {
 }
 
 .starFade {
-    background-image: url('/Images/StarFade.gif');
+    background-image: url('../images/StarFade.jpg');
     min-width: 30px;
     min-height: 30px;
     display: inline-block;
@@ -84,14 +84,14 @@ body {
 }
 
 .starFadeN {
-    background-image: url('/Images/StarFade.gif');
+    background-image: url('../images/StarFade.jpg');
     min-width: 30px;
     min-height: 30px;
     display: inline-block;
 }
 
 .starGlow {
-    background-image: url('/Images/starglow.gif');
+    background-image: url('../images/StarGlow.jpg');
     min-width: 30px;
     min-height: 30px;
     display: inline-block;
@@ -99,7 +99,7 @@ body {
 }
 
 .starGlowN {
-    background-image: url('/Images/starglow.gif');
+    background-image: url('../images/StarGlow.jpg');
     min-width: 30px;
     min-height: 30px;
     display: inline-block;

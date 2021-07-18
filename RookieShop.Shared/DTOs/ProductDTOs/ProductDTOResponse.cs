@@ -21,6 +21,8 @@ namespace RookieShop.Shared.DTOs.ProductDTOs
         public string CategoryName { get; set; }
         public string ImageLink { get; set; }
 
+        public int Rating { get; set; }
+
 
 
 

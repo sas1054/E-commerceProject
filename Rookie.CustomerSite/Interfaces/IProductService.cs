@@ -10,7 +10,7 @@ namespace Rookie.CustomerSite.Interfaces
 {
     public interface IProductService 
     {
-        Task<IEnumerable<ProductDTOResponse>> GetProductAsync(/*ProductCriteriaDTO productCriteriaDto*/);
+        Task<IEnumerable<ProductDTOResponse>> GetProductAsync();
         Task<ProductDTOResponse> GetProductByIdAsync(int id);
 
         Task<IEnumerable<ProductDTOResponse>> GetProductByCategory(int CategoryId);

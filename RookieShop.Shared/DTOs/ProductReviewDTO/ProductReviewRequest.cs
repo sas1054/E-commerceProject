@@ -6,7 +6,7 @@ namespace RookieShop.Shared.DTOs.ProductReviewDTO
 {
     public class ProductReviewRequest
     {
-        public string Conmment { get; set; }
+        public string Comment { get; set; }
 
         public int Rating { get; set; }
 

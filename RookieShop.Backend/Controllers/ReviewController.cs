@@ -34,7 +34,7 @@ namespace RookieShop.Backend.Controllers
 
         [HttpGet("GetReviews/{id}")]
         [AllowAnonymous]
-        public async Task<IEnumerable<ProductReviewDTO>> GetReviews(string id)
+        public async Task<IEnumerable<ProductReviewDTO>> GetReviews(int id)
         {
             var reviews = await _db.ProductReviews
                 .Include(m => m.Product)

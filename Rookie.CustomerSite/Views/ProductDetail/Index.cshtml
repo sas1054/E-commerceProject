@@ -38,6 +38,17 @@
                             <input type="text" class="span1" placeholder="1">
                             <button class="btn btn-inverse" type="submit">Add to cart</button>
                         </form>
+                        
+                        <div>
+                            @for (var i = 1; i <= Model.Product.Rating; i++)
+                            {
+                                <span class="starGlowN"></span>
+                            }
+                            @for (var i = (Model.Product.Rating + 1); i <= 5; i++)
+                            {
+                                <span class="starFadeN"></span>
+                            }
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -51,14 +62,15 @@
                             <div class="tab-pane" id="profile">
                                 <table class="table table-striped shop_attributes">
                                     <tbody>
+                                        @foreach (var cmt in Model.Reviews)
+                                        {
                                         <tr class="">
-                                            <th>Size</th>
-                                            <td>Large, Medium, Small, X-Large</td>
+                                            <th>@cmt.UserName</th>
+                                            <td>@cmt.Comment</td>
                                         </tr>
-                                        <tr class="alt">
-                                            <th>Colour</th>
-                                            <td>Orange, Yellow</td>
-                                        </tr>
+
+                                        }
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -87,6 +99,14 @@
                 interval: 2500
             });
         });
+        function SCRate() {
+        for (var i = 1; i <= @Model.Product.Rating ; i++) {
+            $("#sRate" + i).attr('class', 'starGlowN');
+        }
+    }
+    $(function(){
+        SCRate();
+    });
     </script>
 
 
