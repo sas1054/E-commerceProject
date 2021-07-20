@@ -40,8 +40,8 @@ namespace Rookie.CustomerSite.Controllers
             return View(productDetailVM);
         }
 
-        [Authorize]
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> PostReview(string userName, int rating, string comment, int productId)
         {
             var review = new ProductReviewRequest
