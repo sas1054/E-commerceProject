@@ -1,14 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+
+export const UserContext = React.createContext({ username: "Tuan" });
 
 ReactDOM.render(
-  <React.StrictMode>
+  <UserContext.Provider value={{ username: "T" }}>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </UserContext.Provider>,
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

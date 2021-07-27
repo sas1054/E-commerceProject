@@ -38,9 +38,9 @@ namespace RookieShop.Backend
             
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddAutoMapper(typeof(Mapping));
-            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+                 .AddEntityFrameworkStores<ApplicationDbContext>()
+                 .AddDefaultTokenProviders(); 
 
             services.AddIdentityServer(options =>
             {

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using RookieShop.Backend.Models;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,49 @@ namespace RookieShop.Backend.Data.Extensions
 {
     public static class ModelBuilderExtensions
     {
+        public static void SeedUser(this ModelBuilder modelBuilder)
+        {
+            const string ROLE_ID = "688cc203-353c-4fb9-a309-b2decc46707a";
+            const string USER_ID = "4abead03-d561-44a3-8e59-af5243c7aebb";
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Id = ROLE_ID,
+                Name = "admin",
+                NormalizedName = "admin"
+            });
+
+            const string USER_ROLE = "b6ec3ad1-8b6e-4e19-87b8-e863b55526bc";
+
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Id = USER_ROLE,
+                Name = "User",
+                NormalizedName = "User"
+            });
+            var hasher = new PasswordHasher<User>();
+            modelBuilder.Entity<User>().HasData(
+                new User
+                        {
+                        Id = USER_ID,
+                        UserName = "admin",
+                        NormalizedUserName = "admin",
+                        Email = "admin@gmail.com",
+                        NormalizedEmail = "admin@gmail.com",
+                        EmailConfirmed = true,
+                        PasswordHash = hasher.HashPassword(null, "admin"),
+                        SecurityStamp = string.Empty,
+                 
+                        });
+            
+
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = ROLE_ID,
+                UserId = USER_ID, 
+            });
+
+        }
+    
         public static void Seed(this ModelBuilder modelBuilder)
         {
             #region
