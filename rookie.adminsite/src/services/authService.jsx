@@ -8,7 +8,7 @@ const config = {
     redirect_uri: Host_url + '/signin-callback',
     post_logout_redirect_uri: Host_url + '/signout-callback',
     response_type: "id_token token",
-    scope: "assignmentecommerce.api openid profile",
+    scope: "rookieshop.api openid profile",
     automaticSilentRenew: true,
     includeIdTokenInSilentRenew: true,
 };

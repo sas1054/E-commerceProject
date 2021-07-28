@@ -1,4 +1,4 @@
-import RequestService from "../Services/request";
+import RequestService from "../services/request";
 import { Backend_url } from "../config"
 
 const category_url = Backend_url + "/api/categories";

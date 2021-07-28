@@ -1,91 +1,56 @@
-import React, { lazy, Suspense, useEffect } from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import HelloElement from "./HelloWorld";
-import Home from "./components/Home";
-import Navbar from "./components/Navbar";
-import Contact from "./components/Contact";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import InLineLoader from "./shared-components/InlineLoader";
-import { BRAND } from "./Constants/pages";
+import React from 'react';
+import Header from './containers/Header/index';
+import Home from './containers/Home/index';
+import Product from './containers/Product/index'
+import Category from './containers/Category/index';
+import User from './containers/User';
+import FormProduct from './containers/Product/FormProduct';
+import FormCategory from './containers/Category/FormCategory';
+import SignInCallBack from './containers/Auth/SignInCallBack';
+import SignOutCallBack from './containers/Auth/SignOutCallBack';
+import Logout from './containers/Auth/Logout';
+import Login from './containers/Auth/Login';
 
-const Brand = lazy(() => import('./components/Brand'));
+import { Route, Switch } from 'react-router-dom';
+import { PrivateRoute } from './utils/route';
 
-const SusspenseLoading = ({ children }) => (
-  <Suspense fallback={<InLineLoader />}>
-    {children}
-  </Suspense>
-);
+function App() {
+  return (
+    <div>
+      <Header />
+      <Switch>
+        <Route exact path="/" component={Home}>
+        </Route>
 
-class App extends React.Component {
-  state = {
-    bootcamp: "Rookies",
-    homeClass: "",
-  };
+        <PrivateRoute exact path="/product" component={Product}>
+        </PrivateRoute>
 
-  updateName() {
-    this.setState({
-      isShowHelloElement: !this.state.isShowHelloElement,
-      bootcamp: "sdfalsfjlsd",
-    });
-  }
+        <PrivateRoute exact path="/formproduct" component={FormProduct}>
+        </PrivateRoute>
 
-  handleSearchKey(e) {
-    console.log(e.target.value);
-  }
+        <PrivateRoute exact path="/category" component={Category}>
+        </PrivateRoute>
 
-  /*
-  render() {
-    return (
-      <Router>
-        <div className="App">
-          <Navbar onSearchKey={(e) => this.handleSearchKey(e)} />
+        <PrivateRoute exact path="/formcategory" component={FormCategory}>
+        </PrivateRoute>
 
-          <Route exact path="/">
-            <Home bootcamp={this.state.bootcamp} />
-          </Route>
-          <Route exact path="/contact">
-            <Contact />
-          </Route>
-          <Route exact path="/hello">
-            <HelloElement />
-          </Route>
-          <Route path="/brand">
-            <Brand />
-          </Route>
-        </div>
-      </Router>
-    );
-  }
-  */
+        <PrivateRoute exact path="/user" component={User}>
+        </PrivateRoute>
 
-  render() {
-    return (
-      <Router>
-        <div className="App">
-          <Navbar onSearchKey={(e) => this.handleSearchKey(e)} />
+        <Route exact path="/login" component={Login}>
+        </Route>
 
-          <SusspenseLoading>
-            <Switch>
-              <Route exact path="/">
-                <Home bootcamp={this.state.bootcamp} />
-              </Route>
-                <Route exact path="/contact">
-              <Contact />
-              </Route>
-                <Route exact path="/hello">
-              <HelloElement />
-              </Route>
+        <Route exact path="/logout" component={Logout}>
+        </Route>
 
-              <Route path={BRAND}>
-                <Brand />
-              </Route>
-          </Switch>
-         </SusspenseLoading>
-        </div>
-      </Router>
-    );
-  }
+        <Route exact path="/signin-callback" component={SignInCallBack}>
+        </Route>
+
+        <Route exact path="/signout-callback" component={SignOutCallBack}>
+        </Route>
+      </Switch>
+    </div>
+  );
 }
 
 export default App;

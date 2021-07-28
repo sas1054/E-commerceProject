@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +13,8 @@ using RookieShop.Backend.Data;
 using RookieShop.Backend.IdentityServer;
 using RookieShop.Backend.Mapper;
 using RookieShop.Backend.Models;
+using RookieShop.Backend.Security.Authorization.Handlers;
+using RookieShop.Backend.Security.Authorization.Requirements;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,7 +73,25 @@ namespace RookieShop.Backend
                     policy.AddAuthenticationSchemes("Bearer");
                     policy.RequireAuthenticatedUser();
                 });
+                options.AddPolicy("ADMIN_ROLE_POLICY", policy =>
+                    policy.Requirements.Add(new AdminRoleRequirement()));
             });
+
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.LoginPath = "/CustomAuthentication/Login";
+            });
+
+            services.AddSingleton<IAuthorizationHandler, AdminRoleHandler>();
+
+            services.AddCors(o => o.AddPolicy("My Policy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+            }));
+
+            services.AddRazorPages();
 
             services.AddControllersWithViews();
 
@@ -124,6 +145,8 @@ namespace RookieShop.Backend
 
             app.UseIdentityServer();
             app.UseAuthorization();
+
+            app.UseCors("My policy");
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

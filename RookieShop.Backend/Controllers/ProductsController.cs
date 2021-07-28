@@ -10,12 +10,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static IdentityServer4.IdentityServerConstants;
 
 namespace RookieShop.Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize("Bearer")]
+    [Authorize(LocalApi.PolicyName)]
     public class ProductsController : ControllerBase
     {
         private readonly ApplicationDbContext _db;

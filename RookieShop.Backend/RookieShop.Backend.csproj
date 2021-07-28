@@ -34,6 +34,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\CustomAuthentication\Login.cshtml" />
+    <None Include="Views\CustomAuthentication\Register.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\RookieShop.Shared\RookieShop.Shared.csproj" />
   </ItemGroup>
 

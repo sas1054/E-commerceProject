@@ -86,17 +86,16 @@ namespace RookieShop.Backend.IdentityServer
                     AlwaysSendClientClaims = true,
                     AllowOfflineAccess = true,
                     AlwaysIncludeUserClaimsInIdToken = true,
-
                     RedirectUris = new List<string>
                     {
-                        "http://localhost:3000/authentication/login-callback",
+                        "http://localhost:3000/signin-callback",
                         "http://localhost:3000/silent-renew.html",
                         "http://localhost:3000"
                     },
                     PostLogoutRedirectUris = new List<string>
                     {
                         "http://localhost:3000/unauthorized",
-                        "http://localhost:3000/authentication/logout-callback",
+                        "http://localhost:3000/signout-callback",
                         "http://localhost:3000"
                     },
                     AllowedCorsOrigins = new List<string>
