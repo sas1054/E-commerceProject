@@ -18,7 +18,7 @@ namespace RookieShop.Backend.Data
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<ProductReview> ProductReviews { get; set; }
-        public DbSet<RookieShop.Shared.DTOs.CategoryDTO> CategoryDTO { get; set; }
+        
 
         
 
@@ -27,6 +27,7 @@ namespace RookieShop.Backend.Data
             
             base.OnModelCreating(modelBuilder);
             modelBuilder.Seed();
+            modelBuilder.SeedUser();
         }
     }
 

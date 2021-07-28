@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +13,8 @@ using RookieShop.Backend.Data;
 using RookieShop.Backend.IdentityServer;
 using RookieShop.Backend.Mapper;
 using RookieShop.Backend.Models;
+using RookieShop.Backend.Security.Authorization.Handlers;
+using RookieShop.Backend.Security.Authorization.Requirements;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,9 +41,9 @@ namespace RookieShop.Backend
             
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddAutoMapper(typeof(Mapping));
-            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+                 .AddEntityFrameworkStores<ApplicationDbContext>()
+                 .AddDefaultTokenProviders(); 
 
             services.AddIdentityServer(options =>
             {
@@ -70,7 +73,23 @@ namespace RookieShop.Backend
                     policy.AddAuthenticationSchemes("Bearer");
                     policy.RequireAuthenticatedUser();
                 });
+                options.AddPolicy("ADMIN_ROLE_POLICY", policy =>
+                    policy.Requirements.Add(new AdminRoleRequirement()));
             });
+
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.LoginPath = "/CustomAuthentication/Login";
+            });
+
+            services.AddSingleton<IAuthorizationHandler, AdminRoleHandler>();
+
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", o => o.AllowAnyOrigin().AllowAnyMethod());
+            });
+
+            services.AddRazorPages();
 
             services.AddControllersWithViews();
 
@@ -117,6 +136,12 @@ namespace RookieShop.Backend
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseCors(option => {
+                option.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            });
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -124,6 +149,8 @@ namespace RookieShop.Backend
 
             app.UseIdentityServer();
             app.UseAuthorization();
+
+            
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

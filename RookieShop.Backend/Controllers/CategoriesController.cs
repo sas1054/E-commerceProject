@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ namespace RookieShop.Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize("Bearer")]
     public class CategoriesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -27,6 +29,7 @@ namespace RookieShop.Backend.Controllers
 
         // GET: api/Categories
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
             var CList = await _context.Categories.OrderBy(m => m.CategoryName).ToListAsync();
@@ -55,12 +58,16 @@ namespace RookieShop.Backend.Controllers
         // PUT: api/Categories/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategory(int id, Category category)
+        [Authorize("ADMIN_ROLE_POLICY")]
+        public async Task<IActionResult> PutCategory([FromRoute]int id,[FromForm] CategoryResponseDTO _category)
         {
-            if (id != category.Id)
+            Category category = new Category
             {
-                return BadRequest();
-            }
+                CategoryName = _category.CategoryName,
+                Description = _category.Description,
+                Id = id
+            };
+            
 
             _context.Entry(category).State = EntityState.Modified;
 
@@ -86,8 +93,10 @@ namespace RookieShop.Backend.Controllers
         // POST: api/Categories
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Category>> PostCategory(Category category)
+        [Authorize("ADMIN_ROLE_POLICY")]
+        public async Task<ActionResult<CategoryDTO>> PostCategory([FromForm] CategoryDTO categoryDTO)
         {
+            var category = _mapper.Map<Category>(categoryDTO);
             _context.Categories.Add(category);
             await _context.SaveChangesAsync();
 
@@ -96,13 +105,12 @@ namespace RookieShop.Backend.Controllers
 
         // DELETE: api/Categories/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategory(int id)
+        [Authorize("ADMIN_ROLE_POLICY")]
+        public async Task<IActionResult> DeleteCategory([FromRoute] int id)
         {
             var category = await _context.Categories.FindAsync(id);
-            if (category == null)
-            {
-                return NotFound();
-            }
+            
+            
 
             _context.Categories.Remove(category);
             await _context.SaveChangesAsync();

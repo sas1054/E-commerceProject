@@ -73,6 +73,43 @@ namespace RookieShop.Backend.IdentityServer
                         "rookieshop.api"
                     }
                 },
+
+                new Client {
+                    ClientName = "admin",
+                    ClientId = "admin",
+                    // AccessTokenType = AccessTokenType.Reference,
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+                    RequireClientSecret = false,
+                    RequireConsent = false,
+                    // RequirePkce = true,
+                    AlwaysSendClientClaims = true,
+                    AllowOfflineAccess = true,
+                    AlwaysIncludeUserClaimsInIdToken = true,
+                    RedirectUris = new List<string>
+                    {
+                        "http://localhost:3000/signin-callback",
+                        "http://localhost:3000/silent-renew.html",
+                        "http://localhost:3000"
+                    },
+                    PostLogoutRedirectUris = new List<string>
+                    {
+                        "http://localhost:3000/unauthorized",
+                        "http://localhost:3000/signout-callback",
+                        "http://localhost:3000"
+                    },
+                    AllowedCorsOrigins = new List<string>
+                    {
+                        "http://localhost:3000"
+                    },
+                    AllowedScopes = new List<string>
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.OfflineAccess,
+                        "rookieshop.api",
+                    }
+                }
             };
     }
 }
