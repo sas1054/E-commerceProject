@@ -10,7 +10,7 @@ import { ProductContext } from '../../Context/productContext';
 const Product = () => {
   const { productItems, deleteProduct } = useContext(ProductContext);
 
-  const [productId, setProductId] = useState("");
+  const [id, setProductId] = useState("");
 
   const [modal, setModal] = useState(false);
 
@@ -37,20 +37,19 @@ const Product = () => {
       <Button color="success" className="mb-2 ml-2"><PlusCircleFill color="white" size={20} className="mr-2" />
         <Link to={{
           pathname: '/formproduct',
-          productId: '',
+          id: '',
           product: {
-            name: '',
+            ProductName: '',
             description: '',
             price: 0,
-            categoryId: '',
-            images: null,
+            categoryName: '',
           }
         }} className="text-decoration-none text-white">Create new product</Link>
       </Button>
       <Table striped className="text-center">
         <thead>
           <tr>
-            <th>Image</th>
+            
             <th>Name</th>
             <th>Description</th>
             <th>Price</th>
@@ -62,14 +61,12 @@ const Product = () => {
         <tbody>
           {
             productItems && productItems.map(product =>
-              <tr key={product.productId}>
-                <td>
-                  <img src={product.images} alt={product.name} width="150px" height="150px"></img>
-                </td>
-                <td>{product.name}</td>
+              <tr key={product.id}>
+                
+                <td>{product.ProductName}</td>
                 <td>{product.description}</td>
                 <td>{product.price} VND</td>
-                <td>{product.nameCategory}</td>
+                <td>{product.categoryName}</td>
                 <td>
                   {Array.from(Array(product.rating), () => {
                     return <StarFill color="#ffdd59" size={20} />
@@ -79,19 +76,19 @@ const Product = () => {
                   <Button color="secondary" className="mr-2">
                     <Link to={{
                       pathname: '/formproduct',
-                      productId: product.productId,
+                      id: product.id,
                       product: {
-                        name: product.name,
+                        name: product.ProductName,
                         description: product.description,
                         price: product.price,
-                        categoryId: product.categoryId,
-                        images: null,
+                        CategoryId: product.CategoryId,
+                        
                       }
                     }}>
                       <PenFill color="white" size={20} />
                     </Link>
                   </Button>
-                  <Button color="danger" className="mr-2" onClick={() => handleShow(product.productId)}>
+                  <Button color="danger" className="mr-2" onClick={() => handleShow(product.id)}>
                     <TrashFill color="white" size={20} />
                   </Button>
                 </td>
@@ -107,7 +104,7 @@ const Product = () => {
            </ModalBody>
         <ModalFooter>
           <Button color="secondary" onClick={handleClose}>Close</Button>{' '}
-          <Button color="danger" onClick={() => deletePro(productId)}>Delete</Button>
+          <Button color="danger" onClick={() => deletePro(id)}>Delete</Button>
         </ModalFooter>
       </Modal>
 

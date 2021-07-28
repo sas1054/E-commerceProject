@@ -84,12 +84,10 @@ namespace RookieShop.Backend
 
             services.AddSingleton<IAuthorizationHandler, AdminRoleHandler>();
 
-            services.AddCors(o => o.AddPolicy("My Policy", builder =>
+            services.AddCors(c =>
             {
-                builder.AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader();
-            }));
+                c.AddPolicy("AllowOrigin", o => o.AllowAnyOrigin().AllowAnyMethod());
+            });
 
             services.AddRazorPages();
 
@@ -138,6 +136,12 @@ namespace RookieShop.Backend
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseCors(option => {
+                option.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            });
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -146,7 +150,7 @@ namespace RookieShop.Backend
             app.UseIdentityServer();
             app.UseAuthorization();
 
-            app.UseCors("My policy");
+            
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

@@ -10,7 +10,7 @@ import { CategoryContext } from '../../Context/categoryContext';
 const Category = () => {
   const { categoryItems, deleteCategory } = useContext(CategoryContext);
 
-  const [categoryId, setCategoryId] = useState("");
+  const [id, setCategoryId] = useState("");
 
   const [modal, setModal] = useState(false);
 
@@ -37,18 +37,17 @@ const Category = () => {
       <Button color="success" className="mb-2 ml-2"><PlusCircleFill color="white" size={20} className="mr-2" />
         <Link to={{
           pathname: '/formcategory',
-          categoryId: '',
+          id: '',
           category: {
-            nameCategory: '',
-            description: '',
-            images: null,
+            categoryName: '',
+            description: '',        
           }
         }} className="text-decoration-none text-white">Create new category</Link>
       </Button>
       <Table striped className="text-center">
         <thead>
           <tr>
-            <th>Image</th>
+            
             <th>Name</th>
             <th>Description</th>
             <th></th>
@@ -57,27 +56,25 @@ const Category = () => {
         <tbody>
           {
             categoryItems && categoryItems.map(category =>
-              <tr key={category.categoryId}>
-                <td>
-                  <img src={category.images} alt={category.nameCategory} width="150px" height="150px"></img>
-                </td>
-                <td>{category.nameCategory}</td>
+              <tr key={category.id}>
+                
+                <td>{category.categoryName}</td>
                 <td>{category.description}</td>
                 <td>
                   <Button color="secondary" className="mr-2">
                     <Link to={{
                       pathname: '/formcategory',
-                      categoryId: category.categoryId,
+                      id: category.id,
                       category: {
-                        nameCategory: category.nameCategory,
+                        categoryName: category.categoryName,
                         description: category.description,
-                        images: null,
+                        
                       }
                     }}>
                       <PenFill color="white" size={20} />
                     </Link>
                   </Button>
-                  <Button color="danger" className="mr-2" onClick={() => handleShow(category.categoryId)}>
+                  <Button color="danger" className="mr-2" onClick={() => handleShow(category.id)}>
                     <TrashFill color="white" size={20} />
                   </Button>
                 </td>
@@ -93,7 +90,7 @@ const Category = () => {
            </ModalBody>
         <ModalFooter>
           <Button color="secondary" onClick={handleClose}>Close</Button>{' '}
-          <Button color="danger" onClick={() => deleteCate(categoryId)}>Delete</Button>
+          <Button color="danger" onClick={() => deleteCate(id)}>Delete</Button>
         </ModalFooter>
       </Modal>
 

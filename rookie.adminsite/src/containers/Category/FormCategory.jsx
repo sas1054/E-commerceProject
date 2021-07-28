@@ -12,7 +12,7 @@ import { Thumb } from '../../utils/thumb';
 const FormCategory = (props) => {
     let history = useHistory();
 
-    const categoryId = props.location.categoryId;
+    const id = props.location.id;
     const initialValues = props.location.category;
 
     const { postCategory, putCategory } = useContext(CategoryContext);
@@ -28,14 +28,14 @@ const FormCategory = (props) => {
                     formData.append(key, values[key])
                 });
 
-                (!categoryId) ? postCategory(formData) : putCategory(categoryId, formData)
+                (!id) ? postCategory(formData) : putCategory(id, formData)
 
                 actions.setSubmitting(false);
 
                 history.push('/category')
             }, 1500);
 
-            (!categoryId) ? toast.success("Create new category success !") : toast.success("Edit category success !")
+            (!id) ? toast.success("Create new category success !") : toast.success("Edit category success !")
         }
     });
 
@@ -49,7 +49,7 @@ const FormCategory = (props) => {
                             <InputGroupAddon addonType="prepend">
                                 <InputGroupText><Icon.Spellcheck /></InputGroupText>
                             </InputGroupAddon>
-                            <Input name='nameCategory' value={formik.values.nameCategory} onChange={formik.handleChange} placeholder="Name" />
+                            <Input name='categoryName' value={formik.values.categoryName} onChange={formik.handleChange} placeholder="Name" />
                         </InputGroup>
                         <br />
                         <InputGroup>
@@ -59,13 +59,7 @@ const FormCategory = (props) => {
                             <Input name='description' value={formik.values.description} onChange={formik.handleChange} placeholder="Description" />
                         </InputGroup>
                         <br />
-                        <InputGroup>
-                            <input name="thumbnailImages" type="file" onChange={(event) => {
-                                formik.setFieldValue("thumbnailImages", event.currentTarget.files[0]);
-                            }} />
-                        </InputGroup>
-                        <Thumb file={formik.values.thumbnailImages} />
-                        <br />
+                        
                         <div className="text-center">
                             <Button color="secondary" className="mr-2" type="button">
                                 <Link to="/category" className="text-decoration-none text-white">Close</Link>

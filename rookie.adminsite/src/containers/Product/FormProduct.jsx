@@ -12,7 +12,7 @@ import { Thumb } from '../../utils/thumb';
 const FormProduct = (props) => {
     let history = useHistory();
 
-    const productId = props.location.productId;
+    const id = props.location.id;
     const initialValues = props.location.product;
 
     const { categoryItems, postProduct, putProduct } = useContext(ProductContext);
@@ -28,14 +28,14 @@ const FormProduct = (props) => {
                     formData.append(key, values[key])
                 });
 
-                (!productId) ? postProduct(formData) : putProduct(productId, formData)
+                (!id) ? postProduct(formData) : putProduct(id, formData)
 
                 actions.setSubmitting(false);
 
                 history.push('/product')
             }, 1500);
 
-            (!productId) ? toast.success("Create new product success !") : toast.success("Edit product success !")
+            (!id) ? toast.success("Create new product success !") : toast.success("Edit product success !")
         }
     });
 
@@ -49,7 +49,7 @@ const FormProduct = (props) => {
                             <InputGroupAddon addonType="prepend">
                                 <InputGroupText><Icon.Spellcheck /></InputGroupText>
                             </InputGroupAddon>
-                            <Input name='name' value={formik.values.name} onChange={formik.handleChange} placeholder="Name" />
+                            <Input name='ProductName' value={formik.values.ProductName} onChange={formik.handleChange} placeholder="Name" />
                         </InputGroup>
                         <br />
                         <InputGroup>
@@ -70,20 +70,13 @@ const FormProduct = (props) => {
                             <InputGroupAddon addonType="prepend">
                                 <InputGroupText><Icon.Collection /></InputGroupText>
                             </InputGroupAddon>
-                            <Input type="select" name="categoryId" value={formik.values.categoryId} onChange={formik.handleChange}>
+                            <Input type="select" name="CategoryId" value={formik.values.CategoryId} onChange={formik.handleChange}>
                                 {
                                     categoryItems && categoryItems.map(category =>
-                                        <option selected value={category.categoryId}>{category.nameCategory}</option>
+                                        <option selected value={category.CategoryId}>{category.categoryName}</option>
                                     )}
                             </Input>
                         </InputGroup>
-                        <br />
-                        <InputGroup>
-                            <input name="images" type="file" onChange={(event) => {
-                                formik.setFieldValue("images", event.currentTarget.files[0]);
-                            }} />
-                        </InputGroup>
-                        <Thumb file={formik.values.images} />
                         <br />
                         <div className="text-center m-3">
                             <Button color="secondary" className="mr-2" type="button">

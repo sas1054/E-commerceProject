@@ -1,16 +1,23 @@
 import React from 'react';
 import { Jumbotron, Button } from 'reactstrap';
+import { signinRedirect } from "../../services/authService";
 
+const handleClick = () => {
+  signinRedirect();
+};
 const Home = () => {
   return (
-    <div>
+    <div className="text">
       <Jumbotron>
         <h1 className="display-3">Welcome to admin page!</h1>
-        <p className="lead pt-1">This is a simple hero unit, a simple Jumbotron-style component for calling extra attention to featured content or information.</p>
+        <p className="lead pt-1">Please log in to continue</p>
         <hr className="my-2" />
-        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+        
         <p className="lead">
-          <Button color="primary">Learn More</Button>
+        
+        <Button color="primary" onClick={handleClick}>Login</Button>
+          
+        
         </p>
       </Jumbotron>
     </div>

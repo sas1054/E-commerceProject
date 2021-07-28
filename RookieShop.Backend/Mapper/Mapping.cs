@@ -16,6 +16,7 @@ namespace RookieShop.Backend.Mapper
         {
             CreateMap<Category, CategoryDTO>().ReverseMap();
             CreateMap<Product, ProductDTORequest>().ReverseMap();
+            CreateMap<Product, ProductPost>().ReverseMap();
             CreateMap<Product, ProductDTOResponse>().ReverseMap();
             CreateMap<ProductReview, ProductReviewDTO>().ReverseMap();
             CreateMap<ProductReview, ProductReviewRequest>().ReverseMap();

@@ -13,7 +13,7 @@ const Header = () => {
     return (
         <div>
             <Navbar color="light" light expand="md">
-                <NavbarBrand href="/">Admin Unistore</NavbarBrand>
+                <NavbarBrand href="/">Admin Rookieshop</NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="mr-auto" navbar>

@@ -8,7 +8,7 @@ export default function Logout() {
     };
     return (
         <>
-            <div class="text-center">
+            <div className="text-center">
                 <p>Please click the button to logout !</p>
                 <Button color="primary" onClick={handleClick}>
                     Logout

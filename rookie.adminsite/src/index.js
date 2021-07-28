@@ -7,8 +7,8 @@ import AuthContextProvider from './Context/authContext';
 import ProductProdvider from './Context/productContext';
 import CategoryProdvider from './Context/categoryContext';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 ReactDOM.render(
   <BrowserRouter>
     <AuthContextProvider>

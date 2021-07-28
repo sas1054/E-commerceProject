@@ -1,7 +1,7 @@
 import RequestService from "../services/request";
 import { Backend_url } from "../config"
 
-const product_url = Backend_url + "/api/product";
+const product_url = Backend_url + "/api/products";
 
 export const GetProducts = () => {
     return RequestService.axios.get(product_url)

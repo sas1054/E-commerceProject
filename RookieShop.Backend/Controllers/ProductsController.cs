@@ -16,7 +16,7 @@ namespace RookieShop.Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(LocalApi.PolicyName)]
+    [Authorize("Bearer")]
     public class ProductsController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
@@ -28,6 +28,7 @@ namespace RookieShop.Backend.Controllers
             _mapper = mapper;
         }
         // GET: api/products
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAllProducts()
         {
@@ -45,6 +46,7 @@ namespace RookieShop.Backend.Controllers
             return Ok(objDTO);
         }
         // GET: api/products/5
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProductByID(int id)
         {
@@ -60,7 +62,7 @@ namespace RookieShop.Backend.Controllers
             var objDTO = mapper.Map<ProductDTOResponse>(obj);
             return Ok(objDTO);
         }
-
+        [AllowAnonymous]
         [HttpGet("GetProductByCategory/{CategoryId}")]
         public async Task<IActionResult> GetProductByCategory(int CategoryId)
         {
@@ -76,7 +78,7 @@ namespace RookieShop.Backend.Controllers
             }
             return Ok(objDTO);
         }
-
+        [AllowAnonymous]
         [HttpGet("GetRelatedProduct/{id}")]
         public async Task<IActionResult> GetRelatedProduct(int id)
         {
@@ -97,6 +99,7 @@ namespace RookieShop.Backend.Controllers
             return Ok(mapper.Map<ProductDTOResponse>(objList));
         }
         [HttpGet("SearchProduct/{name}")]
+        [AllowAnonymous]
         public async Task<IActionResult> SearchProduct(string name)
         {
             var objList = await _db.Products
@@ -119,7 +122,8 @@ namespace RookieShop.Backend.Controllers
 
         // POST : api/products
         [HttpPost]
-        public async Task<IActionResult> CreateProducts([FromBody] ProductDTORequest product)
+        [Authorize("ADMIN_ROLE_POLICY")]
+        public async Task<IActionResult> CreateProducts([FromForm] ProductPost product)
         {
             if (product == null)
                 return BadRequest();
@@ -136,8 +140,9 @@ namespace RookieShop.Backend.Controllers
         }
 
         // PUT : api/products
+        [Authorize("ADMIN_ROLE_POLICY")]
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProduct(int id, [FromBody] ProductDTORequest product)
+        public async Task<IActionResult> UpdateProduct([FromForm] int id,  ProductDTORequest product)
         {
             if (product ==null || id != product.Id)
             {
@@ -150,9 +155,9 @@ namespace RookieShop.Backend.Controllers
 
             return NoContent();
         }
-
+        [Authorize("ADMIN_ROLE_POLICY")]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMenuItem(int id)
+        public async Task<IActionResult> DeleteMenuItem([FromRoute] int id)
         {
             bool exits = _db.Products.Any(c => c.Id == id);
             if (!exits)

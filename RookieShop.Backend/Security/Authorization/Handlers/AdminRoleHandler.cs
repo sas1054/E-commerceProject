@@ -13,14 +13,14 @@ namespace RookieShop.Backend.Security.Authorization.Handlers
                                                     AdminRoleRequirement requirement)
         {
             if (!context.User.HasClaim(c => c.Type == JwtClaimTypes.Role &&
-                                            c.Issuer == "https://localhost:5001"))
+                                            c.Issuer == "https://localhost:44341"))
             {
                 return Task.CompletedTask;
             }
 
             var adminClaim = context.User.FindFirst(c => c.Type == JwtClaimTypes.Role && 
-                                                      c.Issuer == "https://localhost:5001" &&
-                                                      c.Value == "Admin")?.Value;
+                                                      c.Issuer == "https://localhost:44341" &&
+                                                      c.Value == "admin")?.Value;
 
             if (!string.IsNullOrEmpty(adminClaim))
             {

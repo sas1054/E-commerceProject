@@ -9,7 +9,7 @@ export default function UnAuthorization() {
 
     return (
         <>
-            <div class="text-center">
+            <div className="text-center">
                 <p>Your account is not authorized !</p>
                 <Button color="primary" onClick={handleClick}>
                     Logout

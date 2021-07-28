@@ -8,7 +8,7 @@ export default function Login() {
     };
     return (
         <>
-            <div class="text-center">
+            <div className="text-center">
                 <p>Please click the button to login !</p>
                 <Button color="primary" onClick={handleClick}>
                     Login
