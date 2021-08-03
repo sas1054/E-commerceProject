@@ -12,6 +12,6 @@
 #### Admin site: Using Single Page Application (SPA): API + ReactJS for this site.
 - [x]	Login/Logout
 - [x] Manage categories (Name, Description)
-- [ ]	Manage products (Name, Category, Description, Price, Images, CreatedDate, UpdatedDate)
-- [ ]	View customers
-### I will try to finish admin site as soon as possible even after the deadline
+- [x]	Manage products (Name, Category, Description, Price, Images, CreatedDate, UpdatedDate)
+- [x]	View customers
+
